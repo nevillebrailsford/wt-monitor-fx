@@ -75,7 +75,7 @@
 						<!-- Usage: mvn clean javafx:run -->
 						<id>default-cli</id>
 						<configuration>
-							<mainClass>com.brailsoft.weightmonitorfx/com.brailsoft.weightmonitorfx.launcher.WeightMonitor</mainClass>
+							<mainClass>com.brailsoft.weight.monitor/com.brailsoft.weightmonitor.launcher.WeightMonitor</mainClass>
 						</configuration>
 					</execution>
 				</executions>
@@ -87,7 +87,7 @@
 					<launcher>weightmonitorfx</launcher>
 					<jlinkImageName>weightmonitor</jlinkImageName>
 					<jlinkZipName>weightmonitor</jlinkZipName>
-					<mainClass>com.brailsoft.weightmonitorfx/com.brailsoft.weightmonitorfx.launcher.WeightMonitor</mainClass>
+					<mainClass>com.brailsoft.weight.monitor/com.brailsoft.weightmonitor.launcher.WeightMonitor</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
