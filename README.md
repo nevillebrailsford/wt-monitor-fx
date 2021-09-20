@@ -1,2 +1,2 @@
 # wt-monitor-fx
-Weight Monitor using JavaFX for Uer interface
+Weight Monitor using JavaFX for User interface
