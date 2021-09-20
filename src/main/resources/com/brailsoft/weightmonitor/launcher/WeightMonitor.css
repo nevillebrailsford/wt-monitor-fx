@@ -1,0 +1,33 @@
+#pane, .root {
+	-fx-background-color: lightblue;
+}
+
+.list-cell {
+	-fx-font-size: 12pt;
+	-fx-font-family: "Courier New";
+}
+
+.label {
+	-fx-font-size: 16pt;
+}
+
+.button {
+	-fx-background-color: mediumseagreen;
+	-fx-text-fill: black;
+	-fx-font-weight: bold;
+}
+
+.button:disabled {
+	-fx-opacity: 0.7;
+}
+
+.buton1 {
+	-fx-background-color: indianred;
+	-fx-text-fill: black;
+	-fx-font-weight: bold;
+}
+
+.button1:disabled {
+	-fx-opacity: 0.7;
+}
+
