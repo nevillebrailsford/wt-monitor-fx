@@ -162,4 +162,11 @@ class ObservationTest {
 		assertTrue(today.compareTo(heavier) < 0);
 	}
 
+	/**
+	 * Test method for * {@link com.brailsoft.weightmonitor.Observation#getYear()}.
+	 */
+	@Test
+	void testYear() {
+		assertEquals("2021", obs1.getYear());
+	}
 }

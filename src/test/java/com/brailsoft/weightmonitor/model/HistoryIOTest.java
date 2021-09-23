@@ -28,11 +28,11 @@ class HistoryIOTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		history.clear();
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
+		history.clear();
 	}
 
 	@Test

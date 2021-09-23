@@ -19,6 +19,7 @@ class HistoryTest {
 	private History temp;
 	private Observation obs1 = new Observation("2021/08/29", "71.0");
 	private Observation obs2 = new Observation("2021/08/29", "71.1");
+	private Observation obs3 = new Observation("2020/08/29", "71.1");
 	private Change<? extends Long, ? extends Observation> change = null;
 	private MapChangeListener<? super Long, ? super Observation> listener = (
 			MapChangeListener.Change<? extends Long, ? extends Observation> c) -> {
@@ -117,4 +118,16 @@ class HistoryTest {
 		assertEquals(2, temp.getHistory().size());
 	}
 
+	@Test
+	void testGetYears() {
+		temp.getYears().forEach(s -> {
+			System.out.println(s);
+		});
+		assertEquals(0, temp.getYears().size());
+		temp.addObservation(obs1);
+		temp.addObservation(obs2);
+		temp.addObservation(obs3);
+		assertEquals(3, temp.getHistory().size());
+		assertEquals(2, temp.getYears().size());
+	}
 }

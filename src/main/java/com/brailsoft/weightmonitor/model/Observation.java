@@ -52,6 +52,10 @@ public class Observation implements Comparable<Observation> {
 		return date;
 	}
 
+	public String getYear() {
+		return getDate().substring(0, 4);
+	}
+
 	public void setWeight(String weight) {
 		this.weight.set(weight);
 	}

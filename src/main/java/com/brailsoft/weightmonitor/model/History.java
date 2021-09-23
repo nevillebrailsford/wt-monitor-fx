@@ -1,9 +1,10 @@
 package com.brailsoft.weightmonitor.model;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javafx.collections.FXCollections;
@@ -52,7 +53,18 @@ public class History {
 		observations.clear();
 	}
 
-	public List<Observation> getHistory() {
+	public synchronized List<String> getYears() {
+		List<String> copyList = new ArrayList<>();
+		Set<String> yearSet = new HashSet<>();
+		observations.values().stream().forEach(o -> {
+			yearSet.add(o.getYear());
+		});
+		copyList.addAll(yearSet);
+		Collections.sort(copyList);
+		return copyList;
+	}
+
+	public synchronized List<Observation> getHistory() {
 		List<Observation> copyList = new ArrayList<>();
 		observations.values().stream().forEach(o -> {
 			copyList.add(new Observation(o));
