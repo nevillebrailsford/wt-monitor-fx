@@ -367,26 +367,29 @@ public class WeightMonitorController implements Initializable {
 	private void loadChart() {
 		lineChart.getData().clear();
 
-		List<Observation> observations = history.getHistory();
-		if (observations.size() < 1) {
+		List<String> years = history.getYears();
+
+		if (years.size() < 1) {
 			lineChart.setTitle("No data");
 			return;
 		} else {
 			lineChart.setTitle(lastFile);
 		}
 
-		XYChart.Series<String, Number> series = new XYChart.Series<>();
-		series.setName("Weight (kg) as recorded every 4 weeks");
-		seriesCount = 0;
-		observations.stream().forEach(o -> {
-			if (seriesCount % 4 == 0) {
-				series.getData().add(new XYChart.Data<String, Number>(o.getDate(), Double.valueOf(o.getWeight())));
-			}
-			seriesCount++;
-		});
+		for (int i = 0; i < years.size(); i++) {
+			List<Observation> observations = history.getHistoryForYear(years.get(i));
+			XYChart.Series<String, Number> series = new XYChart.Series<>();
+			series.setName(years.get(i));
+			seriesCount = 0;
+			observations.stream().forEach(o -> {
+				if (seriesCount % 4 == 0) {
+					series.getData().add(new XYChart.Data<String, Number>(o.getDate(), Double.valueOf(o.getWeight())));
+				}
+				seriesCount++;
+			});
 
-		lineChart.getData().add(series);
-
+			lineChart.getData().add(series);
+		}
 	}
 
 }
