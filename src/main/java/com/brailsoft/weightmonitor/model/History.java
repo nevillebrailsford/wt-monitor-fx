@@ -73,4 +73,15 @@ public class History {
 		return copyList;
 	}
 
+	public synchronized List<Observation> getHistoryForYear(String year) {
+		List<Observation> copyList = new ArrayList<>();
+		getHistory().stream().forEach(o -> {
+			if (o.getYear().equals(year)) {
+				copyList.add(o);
+			}
+		});
+		Collections.sort(copyList);
+		return copyList;
+	}
+
 }

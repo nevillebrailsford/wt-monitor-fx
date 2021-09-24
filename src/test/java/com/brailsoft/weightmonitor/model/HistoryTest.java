@@ -120,14 +120,22 @@ class HistoryTest {
 
 	@Test
 	void testGetYears() {
-		temp.getYears().forEach(s -> {
-			System.out.println(s);
-		});
 		assertEquals(0, temp.getYears().size());
 		temp.addObservation(obs1);
 		temp.addObservation(obs2);
 		temp.addObservation(obs3);
 		assertEquals(3, temp.getHistory().size());
 		assertEquals(2, temp.getYears().size());
+	}
+
+	@Test
+	void testGetHistoryForYear() {
+		assertEquals(0, temp.getYears().size());
+		temp.addObservation(obs1);
+		temp.addObservation(obs2);
+		temp.addObservation(obs3);
+		assertEquals(3, temp.getHistory().size());
+		assertEquals(1, temp.getHistoryForYear("2020").size());
+		assertEquals(2, temp.getHistoryForYear("2021").size());
 	}
 }
