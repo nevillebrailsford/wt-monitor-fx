@@ -25,22 +25,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" prefHeight="400"
-	prefWidth="600" styleClass="root" stylesheets="@WeightMonitor.css"
-	xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.brailsoft.weightmonitor.controller.WeightMonitorController">
+<BorderPane fx:id="borderPane" prefHeight="400" prefWidth="600" styleClass="root" stylesheets="@WeightMonitor.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.brailsoft.weightmonitor.controller.WeightMonitorController">
 	<top>
-		<MenuBar useSystemMenuBar="true"
-			BorderPane.alignment="CENTER">
+		<MenuBar useSystemMenuBar="true" BorderPane.alignment="CENTER">
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem fx:id="newMenuItem" mnemonicParsing="false"
-							onAction="#newMenuItemActionPerformed" text="New Weight File" />
-						<MenuItem fx:id="openMenuItem" mnemonicParsing="false"
-							onAction="#openMenuItemActionPerformed" text="Open Weight File" />
-						<MenuItem fx:id="saveMenuItem" mnemonicParsing="false"
-							onAction="#saveMenuItemActionPerformed" text="Save Weight File" />
+						<MenuItem fx:id="newMenuItem" mnemonicParsing="false" onAction="#newMenuItemActionPerformed" text="New Weight File" />
+						<MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#openMenuItemActionPerformed" text="Open Weight File" />
+						<MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveMenuItemActionPerformed" text="Save Weight File" />
 					</items>
 				</Menu>
 			</menus>
@@ -49,92 +42,70 @@
 	<center>
 		<AnchorPane>
 			<children>
-				<TabPane fx:id="tabPane" layoutX="46.0" layoutY="22.0"
-					prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
-					AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-					AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				<TabPane fx:id="tabPane" layoutX="46.0" layoutY="22.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<tabs>
 						<Tab text="Weight Editor">
 							<content>
 								<GridPane>
 									<columnConstraints>
-										<ColumnConstraints hgrow="SOMETIMES"
-											minWidth="10.0" prefWidth="100.0" />
-										<ColumnConstraints hgrow="SOMETIMES"
-											minWidth="10.0" prefWidth="100.0" />
+										<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+										<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 									</columnConstraints>
 									<rowConstraints>
-										<RowConstraints minHeight="10.0"
-											prefHeight="30.0" vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 									</rowConstraints>
 									<children>
 										<VBox prefHeight="400.0" prefWidth="300.0" spacing="10.0">
 											<children>
 												<HBox>
 													<children>
-														<Region prefHeight="5.0" prefWidth="5.0"
-															HBox.hgrow="ALWAYS" />
-														<Label text="Current Weight File">
+														<Region prefHeight="5.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
+														<Label styleClass="big-text-label" text="Current Weight File">
 														</Label>
-														<Region prefHeight="5.0" prefWidth="5.0"
-															HBox.hgrow="ALWAYS" />
+														<Region prefHeight="5.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
 													</children>
 												</HBox>
-												<TextArea fx:id="weightFileTextArea"
-													editable="false" prefHeight="150.0" prefWidth="300.0"
-													wrapText="true" />
-												<DatePicker fx:id="datePicker"
-													onAction="#datePickerAction" prefHeight="25.0"
-													prefWidth="300.0" />
+												<TextArea fx:id="weightFileTextArea" editable="false" prefHeight="150.0" prefWidth="300.0" wrapText="true" />
+												<DatePicker fx:id="datePicker" onAction="#datePickerAction" prefHeight="25.0" prefWidth="300.0" />
 												<HBox prefWidth="300.0">
 													<children>
-														<Label text="Weight (kg)">
+														<Label styleClass="big-text-label" text="Weight (kg)">
 														</Label>
-														<TextField fx:id="weightField"
-															onAction="#weightFieldAction" />
+														<TextField fx:id="weightField" onAction="#weightFieldAction">
+                                             <HBox.margin>
+                                                <Insets left="12.0" />
+                                             </HBox.margin></TextField>
 													</children>
 												</HBox>
 												<ButtonBar prefHeight="40.0" prefWidth="300.0">
 													<buttons>
-														<Button fx:id="addWeightButton"
-															mnemonicParsing="false" onAction="#addWeightButtonAction"
-															text="Add Weight to File" />
+														<Button fx:id="addWeightButton" mnemonicParsing="false" onAction="#addWeightButtonAction" text="Add Weight to File" />
 													</buttons>
 												</ButtonBar>
 											</children>
 											<padding>
-												<Insets bottom="10.0" left="10.0" right="10.0"
-													top="10.0" />
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 											</padding>
 										</VBox>
-										<VBox prefHeight="400.0" prefWidth="300.0" spacing="10.0"
-											GridPane.columnIndex="1">
+										<VBox prefHeight="400.0" prefWidth="300.0" spacing="10.0" GridPane.columnIndex="1">
 											<children>
 												<HBox>
 													<children>
-														<Region prefHeight="5.0" prefWidth="5.0"
-															HBox.hgrow="ALWAYS" />
-														<Label text="Date           Weight(kg)">
+														<Region prefHeight="5.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
+														<Label styleClass="big-text-label" text="Date           Weight(kg)">
 														</Label>
-														<Region prefHeight="5.0" prefWidth="5.0"
-															HBox.hgrow="ALWAYS" />
+														<Region prefHeight="5.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
 													</children>
 												</HBox>
-												<ListView fx:id="weightsListView"
-													prefHeight="220.0" prefWidth="300.0" />
+												<ListView fx:id="weightsListView" prefHeight="220.0" prefWidth="300.0" />
 												<ButtonBar prefHeight="40.0" prefWidth="300.0">
 													<buttons>
-														<Button fx:id="deleteSelectionButton"
-															mnemonicParsing="false"
-															onAction="#deleteSelectionButtonAction"
-															styleClass="buton1" stylesheets="@WeightMonitor.css"
-															text="Delete Selection" />
+														<Button fx:id="deleteSelectionButton" mnemonicParsing="false" onAction="#deleteSelectionButtonAction" styleClass="buton1" stylesheets="@WeightMonitor.css" text="Delete Selection" />
 													</buttons>
 												</ButtonBar>
 											</children>
 											<padding>
-												<Insets bottom="10.0" left="10.0" right="10.0"
-													top="10.0" />
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 											</padding>
 										</VBox>
 									</children>
@@ -143,18 +114,14 @@
 						</Tab>
 						<Tab text="Weight Plot">
 							<content>
-								<AnchorPane minHeight="0.0" minWidth="0.0"
-									prefHeight="180.0" prefWidth="200.0"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 									<children>
-										<LineChart fx:id="lineChart" prefHeight="350"
-											prefWidth="600">
+										<LineChart fx:id="lineChart" prefHeight="350" prefWidth="600">
 											<xAxis>
-												<CategoryAxis fx:id="xAxis" side="BOTTOM" label="Month"/>
+												<CategoryAxis label="Month" side="BOTTOM" fx:id="xAxis" />
 											</xAxis>
 											<yAxis>
-												<NumberAxis  fx:id="yAxis" side="LEFT" autoRanging="false" lowerBound="60.0" upperBound="90.0" label="Weight"/>
+												<NumberAxis fx:id="yAxis" autoRanging="false" label="Weight" lowerBound="60.0" side="LEFT" upperBound="90.0" />
 											</yAxis>
 										</LineChart>
 									</children>
