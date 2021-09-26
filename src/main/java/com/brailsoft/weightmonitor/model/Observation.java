@@ -13,8 +13,8 @@ public class Observation implements Comparable<Observation> {
 	private long key;
 
 	private static long count = 1;
-	private static String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-			"Oct", "Nov", "Dec" };
+	public static String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+			"Nov", "Dec" };
 
 	public static void resetCount() {
 		count = 1;

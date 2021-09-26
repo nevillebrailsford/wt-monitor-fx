@@ -2,7 +2,6 @@ package com.brailsoft.weightmonitor.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -147,17 +146,19 @@ class HistoryTest {
 		temp.addObservation(obs2);
 		temp.addObservation(obs3);
 		assertEquals(3, temp.getHistory().size());
+
 		assertNotNull(temp.getHistoryByMonthForYear("2021"));
 		assertNotNull(temp.getHistoryByMonthForYear("2021").keySet());
-		assertEquals(1, temp.getHistoryByMonthForYear("2021").keySet().size());
+		assertEquals(12, temp.getHistoryByMonthForYear("2021").keySet().size());
 		assertEquals(2, temp.getHistoryByMonthForYear("2021").get("Aug").size());
 		assertNotNull(temp.getHistoryByMonthForYear("2020"));
 		assertNotNull(temp.getHistoryByMonthForYear("2020").keySet());
-		assertEquals(1, temp.getHistoryByMonthForYear("2020").keySet().size());
+		assertEquals(12, temp.getHistoryByMonthForYear("2020").keySet().size());
 		assertEquals(1, temp.getHistoryByMonthForYear("2020").get("Aug").size());
 		assertNotNull(temp.getHistoryByMonthForYear("2019"));
 		assertNotNull(temp.getHistoryByMonthForYear("2019").keySet());
-		assertEquals(0, temp.getHistoryByMonthForYear("2019").keySet().size());
-		assertNull(temp.getHistoryByMonthForYear("20219").get("Aug"));
+		assertNotNull(temp.getHistoryByMonthForYear("20219"));
+		assertEquals(12, temp.getHistoryByMonthForYear("2019").keySet().size());
+		assertEquals(0, temp.getHistoryByMonthForYear("2019").get("Aug").size());
 	}
 }

@@ -77,10 +77,8 @@ public class History {
 
 	public synchronized List<Observation> getHistoryForYear(String year) {
 		List<Observation> copyList = new ArrayList<>();
-		getHistory().stream().forEach(o -> {
-			if (o.getYear().equals(year)) {
-				copyList.add(new Observation(o));
-			}
+		getHistory().stream().filter(o -> o.getYear().equals(year)).forEach(o -> {
+			copyList.add(new Observation(o));
 		});
 		Collections.sort(copyList);
 		return copyList;
@@ -88,12 +86,11 @@ public class History {
 
 	public synchronized Map<String, List<Observation>> getHistoryByMonthForYear(String year) {
 		Map<String, List<Observation>> result = new HashMap<>();
+		for (int i = 0; i < Observation.months.length; i++) {
+			result.put(Observation.months[i], new ArrayList<Observation>());
+		}
 		getHistoryForYear(year).stream().forEach(o -> {
 			List<Observation> list = result.get(Observation.month(o.getMonth()));
-			if (list == null) {
-				list = new ArrayList<>();
-				result.put(Observation.month(o.getMonth()), list);
-			}
 			list.add(new Observation(o));
 		});
 		return result;
