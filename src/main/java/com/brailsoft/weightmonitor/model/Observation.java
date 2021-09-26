@@ -13,9 +13,19 @@ public class Observation implements Comparable<Observation> {
 	private long key;
 
 	private static long count = 1;
+	private static String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+			"Oct", "Nov", "Dec" };
 
 	public static void resetCount() {
 		count = 1;
+	}
+
+	public static String month(int m) {
+		return months[m - 1];
+	}
+
+	public static String month(String m) {
+		return month(Integer.valueOf(m).intValue());
 	}
 
 	public Observation(String date, String weight) {
@@ -54,6 +64,10 @@ public class Observation implements Comparable<Observation> {
 
 	public String getYear() {
 		return getDate().substring(0, 4);
+	}
+
+	public String getMonth() {
+		return getDate().substring(5, 7);
 	}
 
 	public void setWeight(String weight) {

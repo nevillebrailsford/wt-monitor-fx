@@ -2,8 +2,10 @@ package com.brailsoft.weightmonitor.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -77,11 +79,24 @@ public class History {
 		List<Observation> copyList = new ArrayList<>();
 		getHistory().stream().forEach(o -> {
 			if (o.getYear().equals(year)) {
-				copyList.add(o);
+				copyList.add(new Observation(o));
 			}
 		});
 		Collections.sort(copyList);
 		return copyList;
+	}
+
+	public synchronized Map<String, List<Observation>> getHistoryByMonthForYear(String year) {
+		Map<String, List<Observation>> result = new HashMap<>();
+		getHistoryForYear(year).stream().forEach(o -> {
+			List<Observation> list = result.get(Observation.month(o.getMonth()));
+			if (list == null) {
+				list = new ArrayList<>();
+				result.put(Observation.month(o.getMonth()), list);
+			}
+			list.add(new Observation(o));
+		});
+		return result;
 	}
 
 }
