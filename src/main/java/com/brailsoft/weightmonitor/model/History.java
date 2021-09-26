@@ -1,9 +1,12 @@
 package com.brailsoft.weightmonitor.model;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javafx.collections.FXCollections;
@@ -52,13 +55,45 @@ public class History {
 		observations.clear();
 	}
 
-	public List<Observation> getHistory() {
+	public synchronized List<String> getYears() {
+		List<String> copyList = new ArrayList<>();
+		Set<String> yearSet = new HashSet<>();
+		observations.values().stream().forEach(o -> {
+			yearSet.add(o.getYear());
+		});
+		copyList.addAll(yearSet);
+		Collections.sort(copyList);
+		return copyList;
+	}
+
+	public synchronized List<Observation> getHistory() {
 		List<Observation> copyList = new ArrayList<>();
 		observations.values().stream().forEach(o -> {
 			copyList.add(new Observation(o));
 		});
 		Collections.sort(copyList);
 		return copyList;
+	}
+
+	public synchronized List<Observation> getHistoryForYear(String year) {
+		List<Observation> copyList = new ArrayList<>();
+		getHistory().stream().filter(o -> o.getYear().equals(year)).forEach(o -> {
+			copyList.add(new Observation(o));
+		});
+		Collections.sort(copyList);
+		return copyList;
+	}
+
+	public synchronized Map<String, List<Observation>> getHistoryByMonthForYear(String year) {
+		Map<String, List<Observation>> result = new HashMap<>();
+		for (int i = 0; i < Observation.months.length; i++) {
+			result.put(Observation.months[i], new ArrayList<Observation>());
+		}
+		getHistoryForYear(year).stream().forEach(o -> {
+			List<Observation> list = result.get(Observation.month(o.getMonth()));
+			list.add(new Observation(o));
+		});
+		return result;
 	}
 
 }

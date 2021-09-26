@@ -19,6 +19,7 @@ class HistoryTest {
 	private History temp;
 	private Observation obs1 = new Observation("2021/08/29", "71.0");
 	private Observation obs2 = new Observation("2021/08/29", "71.1");
+	private Observation obs3 = new Observation("2020/08/29", "71.1");
 	private Change<? extends Long, ? extends Observation> change = null;
 	private MapChangeListener<? super Long, ? super Observation> listener = (
 			MapChangeListener.Change<? extends Long, ? extends Observation> c) -> {
@@ -117,4 +118,47 @@ class HistoryTest {
 		assertEquals(2, temp.getHistory().size());
 	}
 
+	@Test
+	void testGetYears() {
+		assertEquals(0, temp.getYears().size());
+		temp.addObservation(obs1);
+		temp.addObservation(obs2);
+		temp.addObservation(obs3);
+		assertEquals(3, temp.getHistory().size());
+		assertEquals(2, temp.getYears().size());
+	}
+
+	@Test
+	void testGetHistoryForYear() {
+		assertEquals(0, temp.getYears().size());
+		temp.addObservation(obs1);
+		temp.addObservation(obs2);
+		temp.addObservation(obs3);
+		assertEquals(3, temp.getHistory().size());
+		assertEquals(1, temp.getHistoryForYear("2020").size());
+		assertEquals(2, temp.getHistoryForYear("2021").size());
+	}
+
+	@Test
+	void testGetHistoryByMonthForYear() {
+		assertEquals(0, temp.getYears().size());
+		temp.addObservation(obs1);
+		temp.addObservation(obs2);
+		temp.addObservation(obs3);
+		assertEquals(3, temp.getHistory().size());
+
+		assertNotNull(temp.getHistoryByMonthForYear("2021"));
+		assertNotNull(temp.getHistoryByMonthForYear("2021").keySet());
+		assertEquals(12, temp.getHistoryByMonthForYear("2021").keySet().size());
+		assertEquals(2, temp.getHistoryByMonthForYear("2021").get("Aug").size());
+		assertNotNull(temp.getHistoryByMonthForYear("2020"));
+		assertNotNull(temp.getHistoryByMonthForYear("2020").keySet());
+		assertEquals(12, temp.getHistoryByMonthForYear("2020").keySet().size());
+		assertEquals(1, temp.getHistoryByMonthForYear("2020").get("Aug").size());
+		assertNotNull(temp.getHistoryByMonthForYear("2019"));
+		assertNotNull(temp.getHistoryByMonthForYear("2019").keySet());
+		assertNotNull(temp.getHistoryByMonthForYear("20219"));
+		assertEquals(12, temp.getHistoryByMonthForYear("2019").keySet().size());
+		assertEquals(0, temp.getHistoryByMonthForYear("2019").get("Aug").size());
+	}
 }

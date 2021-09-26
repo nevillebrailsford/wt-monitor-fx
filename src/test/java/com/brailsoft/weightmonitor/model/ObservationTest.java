@@ -162,4 +162,28 @@ class ObservationTest {
 		assertTrue(today.compareTo(heavier) < 0);
 	}
 
+	/**
+	 * Test method for * {@link com.brailsoft.weightmonitor.Observation#getYear()}.
+	 */
+	@Test
+	void testYear() {
+		assertEquals("2021", obs1.getYear());
+	}
+
+	/**
+	 * Test method for * {@link com.brailsoft.weightmonitor.Observation#getMonth()}.
+	 */
+	@Test
+	void testGetMonth() {
+		assertEquals("08", obs1.getMonth());
+	}
+
+	/**
+	 * Test method for * {@link com.brailsoft.weightmonitor.Observation#getMonth()}.
+	 */
+	@Test
+	void testMonth() {
+		assertEquals("Feb", Observation.month(2));
+		assertEquals("Mar", Observation.month("3"));
+	}
 }
