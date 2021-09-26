@@ -151,7 +151,7 @@
 										<LineChart fx:id="lineChart" prefHeight="350"
 											prefWidth="600">
 											<xAxis>
-												<CategoryAxis fx:id="xAxis" side="BOTTOM" label="Date"/>
+												<CategoryAxis fx:id="xAxis" side="BOTTOM" label="Month"/>
 											</xAxis>
 											<yAxis>
 												<NumberAxis  fx:id="yAxis" side="LEFT" autoRanging="false" lowerBound="60.0" upperBound="90.0" label="Weight"/>

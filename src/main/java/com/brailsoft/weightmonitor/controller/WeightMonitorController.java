@@ -10,6 +10,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -90,7 +91,10 @@ public class WeightMonitorController implements Initializable {
 	private String lastFile = "";
 	private boolean dirty = false;
 	private History history = History.getInstance();
-	private int seriesCount = 0;
+
+	private double total = 0d;
+	private double average = 0d;
+	private int yearIndex = 0;
 
 	MapChangeListener<? super Long, ? super Observation> listener = new MapChangeListener<>() {
 
@@ -373,21 +377,26 @@ public class WeightMonitorController implements Initializable {
 			lineChart.setTitle("No data");
 			return;
 		} else {
-			lineChart.setTitle(lastFile);
+			lineChart.setTitle("Weight by month");
 		}
 
-		for (int i = 0; i < years.size(); i++) {
-			List<Observation> observations = history.getHistoryForYear(years.get(i));
+		for (yearIndex = 0; yearIndex < years.size(); yearIndex++) {
+			Map<String, List<Observation>> monthlyLists = history.getHistoryByMonthForYear(years.get(yearIndex));
 			XYChart.Series<String, Number> series = new XYChart.Series<>();
-			series.setName(years.get(i));
-			seriesCount = 0;
-			observations.stream().forEach(o -> {
-				if (seriesCount % 4 == 0) {
-					series.getData().add(new XYChart.Data<String, Number>(o.getDate(), Double.valueOf(o.getWeight())));
+			series.setName(years.get(yearIndex));
+			for (int i = 0; i < Observation.months.length; i++) {
+				String s = Observation.months[i];
+				List<Observation> listForMonth = monthlyLists.get(s);
+				total = 0d;
+				average = 0d;
+				if (listForMonth.size() > 0) {
+					listForMonth.forEach(o -> {
+						total += Double.valueOf(o.getWeight()).doubleValue();
+					});
+					average = total / listForMonth.size();
 				}
-				seriesCount++;
-			});
-
+				series.getData().add(new XYChart.Data<String, Number>(s, Double.valueOf(average)));
+			}
 			lineChart.getData().add(series);
 		}
 	}
