@@ -20,7 +20,7 @@ public class WeightMonitor extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		Scene scene = new Scene(loadFXML("WeightMonitor"));
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Weight Monitor");
+		primaryStage.setTitle("wt-monitor-fx");
 		primaryStage.setResizable(false);
 		primaryStage.show();
 		scene.getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
