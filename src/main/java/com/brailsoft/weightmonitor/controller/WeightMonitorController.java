@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import com.brailsoft.weightmonitor.model.History;
 import com.brailsoft.weightmonitor.model.HistoryIO;
 import com.brailsoft.weightmonitor.model.Observation;
+import com.brailsoft.weightmonitor.statistics.StatisticsProvider;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -381,20 +382,13 @@ public class WeightMonitorController implements Initializable {
 		}
 
 		for (yearIndex = 0; yearIndex < years.size(); yearIndex++) {
-			Map<String, List<Observation>> monthlyLists = history.getHistoryByMonthForYear(years.get(yearIndex));
+			Map<String, Double> monthlyAverages = StatisticsProvider
+					.getHistoryAveragesByMonthForYear(years.get(yearIndex));
 			XYChart.Series<String, Number> series = new XYChart.Series<>();
 			series.setName(years.get(yearIndex));
 			for (int i = 0; i < Observation.months.length; i++) {
 				String s = Observation.months[i];
-				List<Observation> listForMonth = monthlyLists.get(s);
-				total = 0d;
-				average = 0d;
-				if (listForMonth.size() > 0) {
-					listForMonth.forEach(o -> {
-						total += Double.valueOf(o.getWeight()).doubleValue();
-					});
-					average = total / listForMonth.size();
-				}
+				Double average = monthlyAverages.get(s);
 				series.getData().add(new XYChart.Data<String, Number>(s, Double.valueOf(average)));
 			}
 			lineChart.getData().add(series);
