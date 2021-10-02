@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import com.brailsoft.weightmonitor.model.History;
 import com.brailsoft.weightmonitor.model.Observation;
-import com.brailsoft.weightmonitor.statistics.StatisticsProvider;
 
 class StatisticsProviderTest {
 
@@ -111,7 +110,6 @@ class StatisticsProviderTest {
 		loadObservations();
 
 		assertFalse(StatisticsProvider.getLastRecordedWeight().isBlank());
-		System.out.println(temp.getHistory());
 		assertEquals("10.0", StatisticsProvider.getLastRecordedWeight());
 	}
 
@@ -134,6 +132,20 @@ class StatisticsProviderTest {
 		assertEquals(0, StatisticsProvider.getMinimumWeight());
 		loadObservations();
 		assertEquals(10.0, StatisticsProvider.getMinimumWeight());
+	}
+
+	@Test
+	void testGetMaximumOrigin() {
+		Observation obs1 = new Observation("2021/08/29", "10");
+		temp.addObservation(obs1);
+		assertTrue(StatisticsProvider.getMaximumOrigin() > 10);
+	}
+
+	@Test
+	void testGetMinimumOrigin() {
+		Observation obs1 = new Observation("2021/08/29", "10");
+		temp.addObservation(obs1);
+		assertTrue(StatisticsProvider.getMinimumOrigin() < 10);
 	}
 
 	private void loadObservations() {

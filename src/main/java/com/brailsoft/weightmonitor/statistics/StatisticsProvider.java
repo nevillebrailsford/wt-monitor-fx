@@ -98,6 +98,20 @@ public class StatisticsProvider {
 		return History.getInstance().getHistory().size();
 	}
 
+	public static double getMaximumOrigin() {
+		double maximumWeight = getMaximumWeight();
+		int maxOrigin = (int) Math.round(maximumWeight);
+		maxOrigin = (maxOrigin / 2) * 2;
+		return maxOrigin + 2;
+	}
+
+	public static double getMinimumOrigin() {
+		double minimumWeight = getMinimumWeight();
+		int minOrigin = (int) Math.round(minimumWeight);
+		minOrigin = ((minOrigin - 1) / 2) * 2;
+		return minOrigin;
+	}
+
 	private static Optional<Observation> getFirstRecordedObservation() {
 		Optional<Observation> result = getNumberedObservation(1);
 		return result;

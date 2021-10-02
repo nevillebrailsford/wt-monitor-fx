@@ -422,6 +422,13 @@ public class WeightMonitorController implements Initializable {
 	}
 
 	private void loadStatistics() {
+
+		double lowerBound = StatisticsProvider.getMinimumOrigin();
+		double upperBound = StatisticsProvider.getMaximumOrigin();
+
+		yAxis.setLowerBound(lowerBound);
+		yAxis.setUpperBound(upperBound);
+
 		earliestDate.setText(StatisticsProvider.getFirstRecordedDate());
 		latestDate.setText(StatisticsProvider.getLastRecordedDate());
 
