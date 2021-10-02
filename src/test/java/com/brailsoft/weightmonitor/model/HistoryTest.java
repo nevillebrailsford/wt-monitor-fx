@@ -161,4 +161,14 @@ class HistoryTest {
 		assertEquals(12, temp.getHistoryByMonthForYear("2019").keySet().size());
 		assertEquals(0, temp.getHistoryByMonthForYear("2019").get("Aug").size());
 	}
+
+	@Test
+	void testGetHistoryInCorrectSequence() {
+		temp.addObservation(obs1);
+		temp.addObservation(obs2);
+		temp.addObservation(obs3);
+
+		List<Observation> history = temp.getHistory();
+		System.out.println(history);
+	}
 }
