@@ -1,11 +1,14 @@
-package com.brailsoft.weightmonitor.model;
+package com.brailsoft.weightmonitor.statistics;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class StatisticsHelper {
+import com.brailsoft.weightmonitor.model.History;
+import com.brailsoft.weightmonitor.model.Observation;
+
+public class StatisticsProvider {
 
 	public static Map<String, Double> getHistoryAveragesByMonthForYear(String year) {
 		Map<String, Double> result = new HashMap<>();
@@ -63,6 +66,31 @@ public class StatisticsHelper {
 
 	public static double getAverageWeight() {
 		double result = 0.0d;
+		if (getNumberOfObservations() > 0) {
+			for (Observation o : History.getInstance().getHistory()) {
+				result += Double.valueOf(o.getWeight()).doubleValue();
+			}
+			result = result / getNumberOfObservations();
+		}
+		return result;
+	}
+
+	public static double getMaximumWeight() {
+		double result = 0.0d;
+		for (Observation o : History.getInstance().getHistory()) {
+			result = Math.max(result, Double.valueOf(o.getWeight()).doubleValue());
+		}
+		return result;
+	}
+
+	public static double getMinimumWeight() {
+		double result = 0.0d;
+		if (getNumberOfObservations() > 0) {
+			result = Double.MAX_VALUE;
+		}
+		for (Observation o : History.getInstance().getHistory()) {
+			result = Math.min(result, Double.valueOf(o.getWeight()).doubleValue());
+		}
 		return result;
 	}
 
