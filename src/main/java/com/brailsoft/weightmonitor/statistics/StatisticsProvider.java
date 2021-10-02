@@ -94,6 +94,10 @@ public class StatisticsProvider {
 		return result;
 	}
 
+	public static int getNumberOfObservations() {
+		return History.getInstance().getHistory().size();
+	}
+
 	private static Optional<Observation> getFirstRecordedObservation() {
 		Optional<Observation> result = getNumberedObservation(1);
 		return result;
@@ -113,7 +117,4 @@ public class StatisticsProvider {
 		return result;
 	}
 
-	private static int getNumberOfObservations() {
-		return History.getInstance().getHistory().size();
-	}
 }

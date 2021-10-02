@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -87,14 +88,36 @@ public class WeightMonitorController implements Initializable {
 	@FXML
 	private NumberAxis yAxis;
 
+	@FXML
+	private TextField earliestDate;
+
+	@FXML
+	private TextField latestDate;
+
+	@FXML
+	private TextField earliestWeight;
+
+	@FXML
+	private TextField latestWeight;
+
+	@FXML
+	private TextField minimumWeight;
+
+	@FXML
+	private TextField maximumWeight;
+
+	@FXML
+	private TextField averageWeight;
+
+	@FXML
+	private TextField numberObservations;
+
 	private BooleanProperty canAddWeightProperty;
 	private BooleanProperty canDeleteSelectionProperty;
 	private String lastFile = "";
 	private boolean dirty = false;
 	private History history = History.getInstance();
 
-	private double total = 0d;
-	private double average = 0d;
 	private int yearIndex = 0;
 
 	MapChangeListener<? super Long, ? super Observation> listener = new MapChangeListener<>() {
@@ -108,6 +131,7 @@ public class WeightMonitorController implements Initializable {
 				addToWeightsListView(change.getValueAdded());
 			}
 			loadChart();
+			loadStatistics();
 		}
 	};
 
@@ -160,6 +184,8 @@ public class WeightMonitorController implements Initializable {
 		loadData();
 
 		loadChart();
+
+		loadStatistics();
 
 		weightsListView.getSelectionModel().clearSelection();
 
@@ -393,6 +419,23 @@ public class WeightMonitorController implements Initializable {
 			}
 			lineChart.getData().add(series);
 		}
+	}
+
+	private void loadStatistics() {
+		earliestDate.setText(StatisticsProvider.getFirstRecordedDate());
+		latestDate.setText(StatisticsProvider.getLastRecordedDate());
+
+		earliestWeight.setText(StatisticsProvider.getFirstRecordedWeight());
+		latestWeight.setText(StatisticsProvider.getLastRecordedWeight());
+
+		minimumWeight.setText(Double.toString(StatisticsProvider.getMinimumWeight()));
+		maximumWeight.setText(Double.toString(StatisticsProvider.getMaximumWeight()));
+
+		DecimalFormat formatter = new DecimalFormat("#0.00");
+
+		averageWeight.setText(formatter.format(StatisticsProvider.getAverageWeight()));
+		numberObservations.setText(Integer.toString(StatisticsProvider.getNumberOfObservations()));
+
 	}
 
 }
