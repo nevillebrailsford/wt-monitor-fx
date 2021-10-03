@@ -149,8 +149,8 @@ class StatisticsProviderTest {
 	}
 
 	private void loadObservations() {
-		Observation obs1 = new Observation("2021/08/29", "10.0");
-		Observation obs2 = new Observation("2021/08/29", "20.0");
+		Observation obs1 = new Observation("2021/08/27", "10.0");
+		Observation obs2 = new Observation("2021/08/28", "20.0");
 		Observation obs3 = new Observation("2021/08/29", "30.0");
 		Observation obs4 = new Observation("2021/09/29", "10.0");
 		Observation obs5 = new Observation("2021/07/29", "20.0");
