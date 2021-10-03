@@ -154,8 +154,8 @@
 									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 									<children>
-										<LineChart fx:id="lineChart" prefHeight="350"
-											prefWidth="600">
+										<LineChart fx:id="lineChart" createSymbols="false"
+											prefHeight="350" prefWidth="600">
 											<xAxis>
 												<CategoryAxis label="Month" side="BOTTOM"
 													fx:id="xAxis" />
