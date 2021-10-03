@@ -154,7 +154,7 @@ public class Observation implements Comparable<Observation> {
 		if (getClass() != obj.getClass())
 			return false;
 		Observation other = (Observation) obj;
-		return Objects.equals(getDate(), other.getDate()) && Objects.equals(getWeight(), other.getWeight());
+		return Objects.equals(getDate(), other.getDate());
 	}
 
 }

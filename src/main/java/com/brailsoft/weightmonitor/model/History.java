@@ -37,14 +37,24 @@ public class History {
 	}
 
 	public synchronized void addObservation(Observation observation) {
-		observations.put(observation.getKey(), new Observation(observation));
+		if (observations.containsValue(observation)) {
+			changeObservation(observation);
+		} else {
+			observations.put(observation.getKey(), new Observation(observation));
+		}
 	}
 
 	public synchronized void changeObservation(Observation observation) {
-		var obs = observations.get(observation.getKey());
-		if (obs != null) {
-			observations.put(observation.getKey(), new Observation(observation));
+		Observation obs = null;
+		for (Observation o : observations.values()) {
+			if (o.equals(observation)) {
+				obs = o;
+			}
 		}
+		if (obs != null) {
+			observations.remove(obs.getKey());
+		}
+		observations.put(observation.getKey(), new Observation(observation));
 	}
 
 	public synchronized void removeObservation(Observation observation) {

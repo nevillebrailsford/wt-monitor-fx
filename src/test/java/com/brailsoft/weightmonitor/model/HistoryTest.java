@@ -17,7 +17,7 @@ import javafx.collections.MapChangeListener.Change;
 class HistoryTest {
 
 	private History temp;
-	private Observation obs1 = new Observation("2021/08/29", "71.0");
+	private Observation obs1 = new Observation("2021/08/28", "71.0");
 	private Observation obs2 = new Observation("2021/08/29", "71.1");
 	private Observation obs3 = new Observation("2020/08/29", "71.1");
 	private Change<? extends Long, ? extends Observation> change = null;
@@ -84,7 +84,7 @@ class HistoryTest {
 		var change = new Observation(temp.getHistory().get(0));
 		change.setWeight("71.1");
 		temp.changeObservation(change);
-		assertEquals(obs2, temp.getHistory().get(0));
+		assertEquals(1, temp.getHistory().size());
 	}
 
 	@Test
