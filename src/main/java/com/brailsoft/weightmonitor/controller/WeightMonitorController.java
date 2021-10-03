@@ -37,6 +37,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -171,10 +172,12 @@ public class WeightMonitorController implements Initializable {
 		canDeleteSelectionProperty = new SimpleBooleanProperty(this, "canDeleteSelction", false);
 		deleteSelectionButton.disableProperty().bind(canDeleteSelectionProperty.not());
 
+		weightsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		weightsListView.getSelectionModel().selectedItemProperty().addListener((change, oldValue, newValue) -> {
 			if (newValue == null) {
 				disableDelete();
 			} else {
+				populateEditFields();
 				enableDelete();
 			}
 		});
@@ -182,12 +185,6 @@ public class WeightMonitorController implements Initializable {
 		history.addListener(listener);
 
 		loadData();
-
-		loadChart();
-
-		loadStatistics();
-
-		weightsListView.getSelectionModel().clearSelection();
 
 	}
 
@@ -202,7 +199,7 @@ public class WeightMonitorController implements Initializable {
 		}
 		weightsListView.getItems().add(index, valueAdded);
 		weightsListView.scrollTo(index);
-		weightsListView.getSelectionModel().select(index);
+//		weightsListView.getSelectionModel().select(index);
 	}
 
 	private int findObservation(Observation observationToFind) {
@@ -235,12 +232,16 @@ public class WeightMonitorController implements Initializable {
 
 	@FXML
 	public void addWeightButtonAction(javafx.event.ActionEvent e) {
+		int selectedIndex = weightsListView.getSelectionModel().getSelectedIndex();
 		dirty = true;
 		String date = datePicker.getConverter().toString(datePicker.getValue());
 		String reading = weightField.getText();
 		history.addObservation(new Observation(date, reading));
 		weightField.setText("");
 		canAddWeightProperty.set(false);
+		if (selectedIndex >= 0) {
+			weightsListView.getSelectionModel().clearAndSelect(selectedIndex);
+		}
 	}
 
 	@FXML
@@ -257,7 +258,6 @@ public class WeightMonitorController implements Initializable {
 		} else {
 			canAddWeightProperty.set(true);
 		}
-		weightsListView.getSelectionModel().clearSelection();
 	}
 
 	private void loadData() {
@@ -272,6 +272,7 @@ public class WeightMonitorController implements Initializable {
 			HistoryIO.getInstance().loadWeightFile(lastFile);
 		}
 		weightFileTextArea.setText(lastFile.isBlank() ? "New File" : lastFile);
+		weightsListView.getSelectionModel().clearSelection();
 	}
 
 	private void initializeGUI() {
@@ -393,6 +394,15 @@ public class WeightMonitorController implements Initializable {
 		weightFileTextArea.setText(lastFile);
 		HistoryIO.getInstance().saveWeightFile(lastFile);
 		dirty = false;
+	}
+
+	private void populateEditFields() {
+		Observation o = weightsListView.getSelectionModel().getSelectedItem();
+		String pattern = "yyyy/MM/dd";
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+		datePicker.setValue(LocalDate.parse(o.getDate(), dateFormatter));
+		weightField.setText(o.getWeight());
+		shouldAddButtonBeEnabled();
 	}
 
 	private void loadChart() {
