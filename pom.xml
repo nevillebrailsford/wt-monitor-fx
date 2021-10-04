@@ -1,12 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.brailsoft</groupId>
-  <artifactId>wt-monitor-fx</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>Weight Monitor</name>
-  <description>Weight Monitor to record weight against date</description>
-  
-  	<properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.brailsoft</groupId>
+	<artifactId>wt-monitor-fx</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Weight Monitor</name>
+	<description>Weight Monitor to record weight against date</description>
+
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
@@ -15,12 +17,12 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>16</version>
+			<version>18-ea+3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			<version>16</version>
+			<version>18-ea+3</version>
 		</dependency>
 
 		<dependency>
@@ -92,5 +94,5 @@
 			</plugin>
 		</plugins>
 	</build>
-  
+
 </project>
