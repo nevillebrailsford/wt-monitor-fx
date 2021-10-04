@@ -11,7 +11,6 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -118,8 +117,6 @@ public class WeightMonitorController implements Initializable {
 	private String lastFile = "";
 	private boolean dirty = false;
 	private History history = History.getInstance();
-
-	private int yearIndex = 0;
 
 	MapChangeListener<? super Long, ? super Observation> listener = new MapChangeListener<>() {
 
@@ -408,27 +405,24 @@ public class WeightMonitorController implements Initializable {
 	private void loadChart() {
 		lineChart.getData().clear();
 
-		List<String> years = history.getYears();
+		List<Observation> observations = history.getHistory();
 
-		if (years.size() < 1) {
+		if (observations.size() == 0) {
 			lineChart.setTitle("No data");
 			return;
 		} else {
-			lineChart.setTitle("Weight by month");
+			lineChart.setTitle("Weight by date");
 		}
 
-		for (yearIndex = 0; yearIndex < years.size(); yearIndex++) {
-			Map<String, Double> monthlyAverages = StatisticsProvider
-					.getHistoryAveragesByMonthForYear(years.get(yearIndex));
-			XYChart.Series<String, Number> series = new XYChart.Series<>();
-			series.setName(years.get(yearIndex));
-			for (int i = 0; i < Observation.months.length; i++) {
-				String s = Observation.months[i];
-				Double average = monthlyAverages.get(s);
-				series.getData().add(new XYChart.Data<String, Number>(s, Double.valueOf(average)));
-			}
-			lineChart.getData().add(series);
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+		for (Observation observation : observations) {
+			series.getData().add(new XYChart.Data<String, Number>(observation.getDate(),
+					Double.valueOf(observation.getWeight()).doubleValue()));
 		}
+
+		lineChart.getData().add(series);
+
 	}
 
 	private void loadStatistics() {
